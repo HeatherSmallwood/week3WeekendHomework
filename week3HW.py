@@ -23,9 +23,8 @@ class rentalProperty():
                 break 
             else:
                 break
-        print(f'Please see your the items on your rental income list {self.income_items} ')
-        print(f'The income total is ${self.final_income}')
-               
+        return f'Please see your the items on your rental income list {self.income_items} \n The income total is ${self.final_income}'
+                
         
     def rentalExpenses(self):
         new_expense_item = input('Please enter the name of the item on your rental expense list ')
@@ -39,8 +38,7 @@ class rentalProperty():
                 break   
             else:
                 break
-        print(f'Please see your the items on your rental expense list {self.expense_items} ')
-        print(f'The total expenses are ${self.final_expenses}')
+        return f'Please see your the items on your rental expense list {self.expense_items} \n The total expenses are ${self.final_expenses}'
           
 
 
@@ -54,38 +52,34 @@ class rentalProperty():
                 new_cashOnCash_item = input('Please enter the name of the item on your cash on cash list ')
                 new_cashOnCash_item_price = int(input('Please enter the price of the item on your cash on cash list '))
                 self.cashOnCash_items[new_cashOnCash_item] = new_cashOnCash_item_price
-                sum_of_cashOnCash =sum([value for value in self.cashOnCash_items.values()])
+                self.sum_of_cashOnCash =sum([value for value in self.cashOnCash_items.values()])
         
-                self.final_cashOnCash = str(sum([sum_of_cashOnCash, downPayment, closingCost, rehabBudget]))   
+                self.final_cashOnCash = str(sum([self.sum_of_cashOnCash, downPayment, closingCost, rehabBudget]))   
                 print({self.final_cashOnCash})
                
             else:
-                self.final_cashOnCash = str(sum([sum_of_cashOnCash, downPayment, closingCost, rehabBudget]))   
+                self.final_cashOnCash = str(sum([self.sum_of_cashOnCash, downPayment, closingCost, rehabBudget]))   
                 break
-        print(f'Please see your the items on your cash on cash list {self.cashOnCash_items} ')
-        print(f'The total cash on cash items are ${self.final_cashOnCash }')
+        return f'Please see your the items on your cash on cash list {self.cashOnCash_items} \n The total cash on cash items are ${self.final_cashOnCash }'
 
-        def total_investment(self):
-            rental_ROI = sum(((self.final_income + self.final_expenses) * 12 )/self.final_cashOnCash)
-            return rental_ROI
+    def total_investment(self):
+        rental_ROI = ((int(self.final_income) + int(self.final_expenses)) * 12 )/int(self.final_cashOnCash)
+        return f'Your ROI is {rental_ROI}'
 
     def runner(self):
         while True:
-            action = input('Type "start" to start the ROI calculator ').lower()
+            action = input('Type "start" to start the ROI calculator or "quit" to quit ').lower()
             if action == 'start':
                 ROI_for_rental = rentalProperty()
-                ROI_for_rental.addIncomeItems()
-                ROI_for_rental.rentalExpenses()
-                ROI_for_rental.cashOnCash()
-                ROI_for_rental.total_investment()
+                print(ROI_for_rental.addIncomeItems())
+                print(ROI_for_rental.rentalExpenses())
+                print(ROI_for_rental.cashOnCash())
+                print(ROI_for_rental.total_investment())
             else:
-                print('Sorry you need to enter a valid command ')
-                restartROI = input('Would you like to run the ROI calculator again? "y" for yes "q" to quit').lower
-                if restartROI == 'q':
-                    break
-                else:
-                    continue
+                print('Thanks for using my ROI calculator, keep on investing! ')
+                break
 
 
 ROI_Calculator = rentalProperty()
 ROI_Calculator.runner()
+
